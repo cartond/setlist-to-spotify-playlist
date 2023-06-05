@@ -12,7 +12,12 @@ Flow:
 - Populate interface
 
 Successful Flow (blurred personal info from sharing)
-![](profile-date.png)
+
+![](profile-data.png)
+
+And then some styling and unnecessary data removed
+
+![](profile-data-2.png)
 
 No callback, send to this auth page (note app name near the top)
 ![](auth-page.png)
