@@ -25,6 +25,7 @@ async function fetchProfile(code: string): Promise<UserProfile> {
 }
 
 function populateUI(profile: UserProfile) {
+    debugger
     document.getElementById("displayName")!.innerText = profile.display_name;
     document.getElementById("avatar")!.setAttribute("src", profile.images[0].url)
     document.getElementById("id")!.innerText = profile.id;
