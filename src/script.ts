@@ -36,9 +36,28 @@ function scrapeSongListFromSetlist(setlist: any) {
     return setlist.sets.set.map(set => set.song)
 }
 
+
 // attempt spotify auth
+// attemptAuthentication();
+
 // create playlist
-// add songs to playlist
+async function createPlaylist(userAuthCode: string, userId: string, concert: string="Great concert setlist") {
+    const result = await fetch(
+        `${SPOTIFY_API_URL}users/${userId}/playlists`, 
+        {  
+            method: "POST",
+            headers: { Authorization: `Bearer ${userAuthCode}` },
+            body: JSON.stringify({
+                name: concert,
+                description: "Playlist created from some weird spotify concert setlist tool",
+                public: true
+            })
+        }
+    );
+
+    return await result.json();
+}
+
 
 
 async function attemptAuthentication() {
