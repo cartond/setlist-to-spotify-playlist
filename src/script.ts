@@ -4,10 +4,26 @@ import { redirectToAuthCodeFlow, getAccessToken } from "./authCodeWithPkce";
 
 const SPOTIFY_CLIENT_ID = import.meta.env.VITE_SPOTIFY_CLIENT_ID
 const SPOTIFY_CLIENT_SECRET = import.meta.env.VITE_SPOTIFY_CLIENT_SECRET
+const SETLIST_FM_API_KEY = import.meta.env.VITE_SETLIST_FM_API_KEY
+const SETLIST_API_URL = "https://api.setlist.fm/rest/1.0/"
+const SPOTIFY_API_URL = "https://api.spotify.com/v1/"
 
-const code =  "AQDDZBpO_x8yeXvDsjKfSJJBt9Ze7HrRoOT2VpqrIUtqDgs6CL35ULNYgXalQtEN4AGgSnDrJW-mmui452qkcOEkdKo8HzdbbCKrPP6gKAs3E5uinkpAS0AHbq2saTtjGtsxji9ukxKPbPKwoK9SYB8ZdrV8a4cTm5-Mlr8h6STrpOl-spzY0H9DfOvgcY373Y6k-7BSMLb9QsjAE72Ic3RGqoHXbd5o3wDPRvQ3C7vRiop6iAiho4YDcPT5YBbvt3e8vnaTo5HnqKY1OSEO666g7gqbBJVF0Q"
 
-// search setlist.fm for artist
+/* 
+    Search setlist.fm for artist
+    Setlists: https://api.setlist.fm/docs/1.0/json_Setlists.html
+    Setlist: https://api.setlist.fm/docs/1.0/json_Setlist.html
+    This returns an _array_ of setlists, each one is a different version (user update) so maybe we need to sort and get latest by `lastUpdated`
+
+    TODO: We could (in the background) search for the artist on Spotify and get the artist image
+*/
+async function searchSetlistFmByArtist(artist: string) {
+    const result = await fetch(`${SETLIST_API_URL}search/setlists?artistName=${artist}`, {
+        method: "GET", headers: { "x-api-key": SETLIST_FM_API_KEY }
+    });
+
+    return await result.json();
+}
 // search artist for concerts
 // scrape song list from single concert
 // attempt spotify auth
