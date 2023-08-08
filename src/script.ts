@@ -24,8 +24,18 @@ async function searchSetlistFmByArtist(artist: string) {
 
     return await result.json();
 }
-// search artist for concerts
-// scrape song list from single concert
+
+
+/* 
+    Scrape song list from single concert
+    Set: https://api.setlist.fm/docs/1.0/json_Set.html
+    Song: https://api.setlist.fm/docs/1.0/json_Song.html
+    This will be an object with `.song` having an array of songs https://api.setlist.fm/docs/1.0/json_Song.html
+*/
+function scrapeSongListFromSetlist(setlist: any) {
+    return setlist.sets.set.map(set => set.song)
+}
+
 // attempt spotify auth
 // create playlist
 // add songs to playlist
