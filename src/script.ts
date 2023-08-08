@@ -89,6 +89,10 @@ async function searchSpotifyForSongs(userAuthCode: string, songs: string[]) {
 }
 
 
+// add songs to playlist https://developer.spotify.com/documentation/web-api/reference/add-tracks-to-playlist
+
+
+
 async function attemptAuthentication() {
     if (!SPOTIFY_CLIENT_ID) {
         // In the real world this would be an API/library error,
