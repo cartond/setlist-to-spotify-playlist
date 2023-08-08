@@ -1,10 +1,23 @@
-// Because this is a literal single page application
+// Because this is a single page application
 // we detect a callback from Spotify by checking for the hash fragment
 import { redirectToAuthCodeFlow, getAccessToken } from "./authCodeWithPkce";
 
-console.log('hello world')
 const CLIENT_ID = import.meta.env.VITE_CLIENT_ID
 const CLIENT_SECRET = import.meta.env.VITE_CLIENT_SECRET
+
+if (!CLIENT_ID) {
+    // In the real world this would be an API/library error,
+    //   but for this demo let's just `alert` and stop further execution
+    alert("Missing CLIENT_ID env variable")
+    throw new Error("Missing CLIENT_ID env variable");
+}
+if (!CLIENT_SECRET) {
+    // In the real world this would be an API/library error,
+    //   but for this demo let's just `alert` and stop further execution
+    alert("Missing CLIENT_SECRET env variable")
+    throw new Error("Missing CLIENT_SECRET env variable");
+}
+
 const params = new URLSearchParams(window.location.search);
 const code = params.get("code");
 

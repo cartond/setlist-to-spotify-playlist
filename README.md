@@ -1,8 +1,11 @@
 # Setlist to Spotify Playlist
 
-TL;DR - Let user's search and find an artist's conecert setlist and create a Spotify playlist for them of those songs.
+TL;DR - You went to a concert and loved the show or you are planning to go to one and want to know what songs to expect. The goal of this is to find an artist's concert setlist and create a Spotify playlist for them of those songs.
 
-`npm run dev`
+```
+npm install -g vite
+npm run dev
+```
 
 ---
 ### Background
