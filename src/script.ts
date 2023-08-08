@@ -59,6 +59,35 @@ async function createPlaylist(userAuthCode: string, userId: string, concert: str
 }
 
 
+// search spotify for songs (scrapeSongListFromSetlist above) (https://developer.spotify.com/documentation/web-api/reference/search/search/)
+async function searchSpotifyForSongs(userAuthCode: string, songs: string[]) {
+    // Would be nice to fire them all off at once but here we are
+    var songURIList = []
+    for (const song of songs) {
+        try {
+            const result = await fetch(
+                `${SPOTIFY_API_URL}search?q=${song}&type=track`, 
+                {  
+                    method: "GET",
+                    headers: { Authorization: `Bearer ${userAuthCode}` }
+                }
+            );
+            var searchResult = await result.json();
+
+            if(searchResult.tracks.total > 0) {
+                // Lazy way to get the first result
+                songURIList.push(searchResult.tracks.items[0].uri)
+            }else{
+                throw new Error("No songs found");
+            }
+        } catch (error) {
+            console.warn(`Error searching for song ${song}: ${error}`)
+        }
+    }
+
+    return songURIList;
+}
+
 
 async function attemptAuthentication() {
     if (!SPOTIFY_CLIENT_ID) {
